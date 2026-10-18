@@ -441,8 +441,8 @@ export class PortfolioDataService {
         en: 'Bulk Messaging SaaS Platform',
       },
       period: {
-        es: 'Sep 2023 – Ene 2024',
-        en: 'Sep 2023 – Jan 2024',
+        es: 'Sep 2023 – Feb 2024',
+        en: 'Sep 2023 – Feb 2024',
       },
       isCurrent: false,
       achievements: {
