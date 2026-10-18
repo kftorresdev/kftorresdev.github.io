@@ -2,6 +2,8 @@ import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../core/services/language.service';
 import { PortfolioDataService } from '../../core/services/portfolio-data.service';
+import { SkillsMatrixComponent } from '../skills/skills-matrix.component';
+import { TimelineComponent } from '../timeline/timeline.component';
 
 /**
  * Página principal / Landing del portafolio.
@@ -10,7 +12,7 @@ import { PortfolioDataService } from '../../core/services/portfolio-data.service
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SkillsMatrixComponent, TimelineComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
