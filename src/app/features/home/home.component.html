@@ -105,87 +105,13 @@
         </p>
       </div>
 
-      <!-- Tarjetas de Proyectos Destacados (Vista Previa Sprint 1) -->
+      <!-- Grilla de Estudios de Caso de Proyectos (Sprint 3) -->
       <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
         @for (project of dataService.projects; track project.id) {
-          <article class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/5 dark:border-zinc-800 dark:bg-zinc-900/70 light:border-slate-200 light:bg-white light:shadow-sm">
-            
-            <div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="rounded-md border border-zinc-700 bg-zinc-800/80 px-2.5 py-0.5 font-mono text-xs font-medium text-zinc-300 dark:border-zinc-700 dark:bg-zinc-800/80 light:border-slate-300 light:bg-slate-100 light:text-slate-700">
-                  {{ project.category }}
-                </span>
-                <span class="rounded-md border border-emerald-500/30 bg-emerald-950/40 px-2.5 py-0.5 font-mono text-[11px] font-medium text-emerald-400">
-                  {{ project.badgeStatus }}
-                </span>
-              </div>
-
-              <h3 class="mt-4 text-2xl font-bold text-zinc-100 group-hover:text-cyan-400 dark:text-zinc-100 light:text-slate-900 transition-colors">
-                {{ project.title }}
-              </h3>
-
-              <p class="mt-1 font-mono text-xs text-cyan-400 dark:text-cyan-400 light:text-cyan-600">
-                {{ project.subtitle[langService.currentLanguage()] }}
-              </p>
-
-              <p class="mt-3 text-sm leading-relaxed text-zinc-400 dark:text-zinc-400 light:text-slate-600">
-                {{ project.summary[langService.currentLanguage()] }}
-              </p>
-
-              <!-- Métricas Clave -->
-              <div class="mt-5 grid grid-cols-2 gap-2">
-                @for (metric of project.metrics; track metric.id) {
-                  <div class="rounded-lg border border-zinc-800/80 bg-zinc-950/60 p-2.5 dark:border-zinc-800/80 dark:bg-zinc-950/60 light:border-slate-200 light:bg-slate-50">
-                    <div class="text-[11px] text-zinc-500 dark:text-zinc-500 light:text-slate-500">
-                      {{ metric.label[langService.currentLanguage()] }}
-                    </div>
-                    <div class="font-mono text-xs font-bold text-zinc-200 dark:text-zinc-200 light:text-slate-800">
-                      {{ metric.value }}
-                    </div>
-                  </div>
-                }
-              </div>
-
-              <!-- Tags de Tecnologías -->
-              <div class="mt-5 flex flex-wrap gap-1.5">
-                @for (tech of project.techStack; track tech) {
-                  <span class="rounded-md bg-zinc-800/60 px-2 py-0.5 font-mono text-[11px] text-zinc-300 dark:bg-zinc-800/60 dark:text-zinc-300 light:bg-slate-100 light:text-slate-700">
-                    {{ tech }}
-                  </span>
-                }
-              </div>
-            </div>
-
-            <!-- Enlaces de Acción del Proyecto -->
-            <div class="mt-6 flex items-center gap-3 pt-4 border-t border-zinc-800 dark:border-zinc-800 light:border-slate-200">
-              @if (project.liveDemoUrl) {
-                <a
-                  [href]="project.liveDemoUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 px-3.5 py-1.5 text-xs font-semibold text-cyan-300 hover:bg-cyan-500/20 hover:text-cyan-200 transition-colors"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                  <span>{{ t().projectsSection.liveDemo }}</span>
-                </a>
-              }
-
-              <a
-                [href]="project.githubUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800/50 px-3.5 py-1.5 text-xs font-semibold text-zinc-300 hover:border-zinc-500 hover:text-white dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-300 light:border-slate-300 light:bg-slate-100 light:text-slate-700 transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                </svg>
-                <span>{{ t().projectsSection.sourceCode }}</span>
-              </a>
-            </div>
-
-          </article>
+          <app-project-card
+            [project]="project"
+            (openModal)="openProjectModal($event)"
+          ></app-project-card>
         }
       </div>
     </section>
@@ -200,5 +126,11 @@
     <div id="contacto" class="pt-20"></div>
 
   </div>
+
+  <!-- Modal Interactivo de Arquitectura de Proyecto (Sprint 3) -->
+  <app-architecture-modal
+    [project]="selectedProjectForModal()"
+    (closeModal)="closeProjectModal()"
+  ></app-architecture-modal>
 
 </div>

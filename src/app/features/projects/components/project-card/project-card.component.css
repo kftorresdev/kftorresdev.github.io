@@ -1,0 +1,5 @@
+/* Estilos locales para ProjectCardComponent */
+:host {
+  display: flex;
+  flex-direction: column;
+}

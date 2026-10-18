@@ -1,0 +1,215 @@
+@if (project(); as proj) {
+  <div
+    class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md transition-all duration-300"
+    (click)="onBackdropClick($event)"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="proj.title"
+  >
+    <div
+      class="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/95 shadow-2xl shadow-cyan-500/10 dark:border-zinc-800 dark:bg-zinc-950/95 light:border-slate-200 light:bg-white"
+    >
+      
+      <!-- Cabecera del Modal -->
+      <div class="flex items-start justify-between border-b border-zinc-800/80 p-6 dark:border-zinc-800/80 light:border-slate-200">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="rounded-md border border-cyan-500/30 bg-cyan-950/40 px-2.5 py-0.5 font-mono text-xs font-semibold text-cyan-400">
+              {{ proj.category }}
+            </span>
+            <span class="rounded-md border border-emerald-500/30 bg-emerald-950/40 px-2.5 py-0.5 font-mono text-[11px] font-medium text-emerald-400">
+              {{ proj.badgeStatus }}
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-zinc-100 sm:text-3xl dark:text-zinc-100 light:text-slate-900">
+            {{ proj.title }}
+          </h3>
+          <p class="font-mono text-xs text-cyan-400 dark:text-cyan-400 light:text-cyan-600 mt-1">
+            {{ proj.subtitle[langService.currentLanguage()] }}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          (click)="onClose()"
+          class="rounded-xl border border-zinc-800 bg-zinc-900 p-2 text-zinc-400 transition-colors hover:border-zinc-700 hover:text-white dark:border-zinc-800 dark:bg-zinc-900 light:border-slate-200 light:bg-slate-100 light:text-slate-600"
+          aria-label="Cerrar modal"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Barra de Pestañas del Modal -->
+      <div class="flex border-b border-zinc-800/80 px-6 font-mono text-xs font-semibold dark:border-zinc-800/80 light:border-slate-200">
+        <button
+          type="button"
+          (click)="setTab('overview')"
+          [class.border-cyan-400]="activeTab() === 'overview'"
+          [class.text-cyan-400]="activeTab() === 'overview'"
+          class="-mb-px border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors"
+        >
+          {{ langService.isEnglish() ? 'Executive Overview' : 'Visión Ejecutiva' }}
+        </button>
+
+        <button
+          type="button"
+          (click)="setTab('architecture')"
+          [class.border-cyan-400]="activeTab() === 'architecture'"
+          [class.text-cyan-400]="activeTab() === 'architecture'"
+          class="-mb-px border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors"
+        >
+          {{ langService.isEnglish() ? 'System Modules' : 'Módulos del Sistema' }}
+        </button>
+
+        <button
+          type="button"
+          (click)="setTab('metrics')"
+          [class.border-cyan-400]="activeTab() === 'metrics'"
+          [class.text-cyan-400]="activeTab() === 'metrics'"
+          class="-mb-px border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors"
+        >
+          {{ langService.isEnglish() ? 'QA & Test Matrix' : 'Pruebas & Métricas' }}
+        </button>
+      </div>
+
+      <!-- Cuerpo del Modal con Desplazamiento Suave -->
+      <div class="flex-1 overflow-y-auto p-6 space-y-6">
+        
+        <!-- Pestaña 1: Visión Ejecutiva -->
+        @if (activeTab() === 'overview') {
+          <div class="space-y-6">
+            <!-- Dolor de Negocio -->
+            <div class="rounded-2xl border border-red-500/20 bg-red-950/10 p-5">
+              <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-red-400 mb-2">
+                {{ langService.isEnglish() ? '1. The Business Pain Point' : '1. El Dolor de Negocio' }}
+              </h4>
+              <p class="text-sm leading-relaxed text-zinc-300 dark:text-zinc-300 light:text-slate-700">
+                {{ proj.businessProblem[langService.currentLanguage()] }}
+              </p>
+            </div>
+
+            <!-- Solución Técnica -->
+            <div class="rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-5">
+              <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400 mb-2">
+                {{ langService.isEnglish() ? '2. Architectural Solution' : '2. Solución Arquitectónica' }}
+              </h4>
+              <p class="text-sm leading-relaxed text-zinc-300 dark:text-zinc-300 light:text-slate-700">
+                {{ proj.technicalSolution[langService.currentLanguage()] }}
+              </p>
+            </div>
+
+            <!-- Aspectos Destacados -->
+            <div>
+              <h4 class="text-sm font-bold text-zinc-100 dark:text-zinc-100 light:text-slate-900 mb-3">
+                {{ langService.isEnglish() ? 'Key Engineering Highlights:' : 'Aspectos Clave de Ingeniería:' }}
+              </h4>
+              <ul class="space-y-2 text-sm text-zinc-300 dark:text-zinc-300 light:text-slate-700">
+                @for (highlight of proj.keyHighlights[langService.currentLanguage()]; track highlight) {
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-cyan-400 mt-1 flex-shrink-0">&bull;</span>
+                    <span class="leading-relaxed">{{ highlight }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
+
+        <!-- Pestaña 2: Módulos del Sistema -->
+        @if (activeTab() === 'architecture') {
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @for (mod of proj.architectureModules; track mod.id) {
+              <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 dark:border-zinc-800 dark:bg-zinc-900/50 light:border-slate-200 light:bg-slate-50">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                  <h4 class="font-bold text-sm text-zinc-100 dark:text-zinc-100 light:text-slate-900">
+                    {{ mod.title[langService.currentLanguage()] }}
+                  </h4>
+                </div>
+                <p class="text-xs leading-relaxed text-zinc-400 dark:text-zinc-400 light:text-slate-600">
+                  {{ mod.description[langService.currentLanguage()] }}
+                </p>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Pestaña 3: Pruebas & Métricas -->
+        @if (activeTab() === 'metrics') {
+          <div class="space-y-6">
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              @for (metric of proj.metrics; track metric.id) {
+                <div class="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 text-center">
+                  <div class="font-mono text-base font-extrabold text-cyan-400">
+                    {{ metric.value }}
+                  </div>
+                  <div class="mt-1 text-[11px] text-zinc-400">
+                    {{ metric.label[langService.currentLanguage()] }}
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Stack Tecnológico Completo -->
+            <div class="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5">
+              <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3">
+                {{ langService.isEnglish() ? 'Verified Technologies:' : 'Tecnologías Verificadas:' }}
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                @for (tech of proj.techStack; track tech) {
+                  <span class="rounded-lg border border-zinc-700 bg-zinc-800 px-2.5 py-1 font-mono text-xs font-medium text-zinc-300">
+                    {{ tech }}
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+
+      </div>
+
+      <!-- Pie del Modal con Enlaces Externos -->
+      <div class="flex flex-wrap items-center justify-between gap-3 border-t border-zinc-800/80 bg-zinc-950 p-6 dark:border-zinc-800/80 light:border-slate-200">
+        <div class="flex items-center gap-3">
+          @if (proj.liveDemoUrl) {
+            <a
+              [href]="proj.liveDemoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-xl bg-cyan-500 px-4 py-2 text-xs font-semibold text-zinc-950 shadow-md shadow-cyan-500/20 hover:bg-cyan-400 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span>{{ t().liveDemo }}</span>
+            </a>
+          }
+
+          <a
+            [href]="proj.githubUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-xs font-semibold text-zinc-200 hover:border-zinc-500 hover:text-white transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+            <span>{{ t().sourceCode }}</span>
+          </a>
+        </div>
+
+        <button
+          type="button"
+          (click)="onClose()"
+          class="rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-400 hover:text-zinc-200 transition-colors"
+        >
+          {{ t().closeDetails }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+}
