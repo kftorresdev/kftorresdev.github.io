@@ -1,0 +1,4 @@
+/* Estilos locales para ContactFormComponent */
+:host {
+  display: block;
+}

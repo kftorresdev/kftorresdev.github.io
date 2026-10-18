@@ -1,0 +1,282 @@
+<section id="contacto" class="pt-24 pb-12">
+  <!-- Cabecera de Sección -->
+  <div class="mb-14 text-center">
+    <span class="inline-block rounded-full border border-cyan-500/30 bg-cyan-950/30 px-3 py-1 font-mono text-xs font-semibold text-cyan-400">
+      {{ t().badge }}
+    </span>
+    <h2 class="mt-3 text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl dark:text-zinc-100 light:text-slate-900">
+      {{ t().title }}
+    </h2>
+    <p class="mx-auto mt-2 max-w-2xl text-sm text-zinc-400 dark:text-zinc-400 light:text-slate-600">
+      {{ t().subtitle }}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 max-w-6xl mx-auto">
+    
+    <!-- Columna Izquierda: Formulario Reactivo Serverless (7 columnas) -->
+    <div class="lg:col-span-7">
+      <div class="rounded-3xl border border-zinc-800/90 bg-zinc-900/60 p-6 sm:p-8 backdrop-blur-md dark:border-zinc-800/90 dark:bg-zinc-900/60 light:border-slate-200 light:bg-white light:shadow-sm">
+        
+        <!-- Estado 4: Exitoso (Success State) -->
+        @if (submissionState() === 'SUCCESS') {
+          <div class="rounded-2xl border border-emerald-500/30 bg-emerald-950/30 p-6 text-center animate-fade-in">
+            <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-emerald-300">{{ t().successTitle }}</h3>
+            <p class="mt-1 text-xs text-emerald-400/90 leading-relaxed">{{ t().successMessage }}</p>
+            <button
+              type="button"
+              (click)="resetState()"
+              class="mt-4 rounded-xl border border-emerald-500/40 bg-emerald-950/50 px-4 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-900/60"
+            >
+              {{ langService.isEnglish() ? 'Send another message' : 'Enviar otro mensaje' }}
+            </button>
+          </div>
+        }
+
+        <!-- Estado 3: Error (Error State) -->
+        @if (submissionState() === 'ERROR') {
+          <div class="rounded-2xl border border-rose-500/30 bg-rose-950/30 p-6 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="h-6 w-6 text-rose-400 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              <div>
+                <h4 class="font-bold text-sm text-rose-300">{{ t().errorTitle }}</h4>
+                <p class="mt-1 text-xs text-rose-400/90 leading-relaxed">{{ t().errorMessage }}</p>
+                <div class="mt-3 flex items-center gap-3">
+                  <button
+                    type="button"
+                    (click)="retry()"
+                    class="rounded-lg bg-rose-500 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-400"
+                  >
+                    {{ t().retryButton }}
+                  </button>
+                  <a
+                    [href]="dataService.profile.whatsappUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs font-semibold text-emerald-400 hover:underline"
+                  >
+                    WhatsApp &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Formulario Reactivo -->
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-5">
+          
+          <!-- Campo Trampa Anti-Spam (Honeypot) - Oculto -->
+          <div class="hidden" aria-hidden="true">
+            <input type="text" formControlName="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Nombre Completo -->
+          <div>
+            <label for="contact-name" class="block font-mono text-xs font-semibold text-zinc-300 dark:text-zinc-300 light:text-slate-700 mb-1.5">
+              {{ t().nameLabel }} <span class="text-rose-400">*</span>
+            </label>
+            <input
+              id="contact-name"
+              type="text"
+              formControlName="name"
+              [placeholder]="t().namePlaceholder"
+              [class.border-rose-500]="isFieldInvalid('name')"
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950/80 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-zinc-800 dark:bg-zinc-950/80 dark:text-zinc-100 light:border-slate-300 light:bg-slate-50 light:text-slate-900"
+            />
+            @if (isFieldInvalid('name')) {
+              <p class="mt-1 font-mono text-[11px] text-rose-400">
+                {{ langService.isEnglish() ? 'Please provide a valid name (min. 3 characters)' : 'Ingresa un nombre válido (mínimo 3 caracteres)' }}
+              </p>
+            }
+          </div>
+
+          <!-- Correo Electrónico -->
+          <div>
+            <label for="contact-email" class="block font-mono text-xs font-semibold text-zinc-300 dark:text-zinc-300 light:text-slate-700 mb-1.5">
+              {{ t().emailLabel }} <span class="text-rose-400">*</span>
+            </label>
+            <input
+              id="contact-email"
+              type="email"
+              formControlName="email"
+              [placeholder]="t().emailPlaceholder"
+              [class.border-rose-500]="isFieldInvalid('email')"
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950/80 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-zinc-800 dark:bg-zinc-950/80 dark:text-zinc-100 light:border-slate-300 light:bg-slate-50 light:text-slate-900"
+            />
+            @if (isFieldInvalid('email')) {
+              <p class="mt-1 font-mono text-[11px] text-rose-400">
+                {{ langService.isEnglish() ? 'Please provide a valid corporate or personal email' : 'Ingresa un correo electrónico con formato válido' }}
+              </p>
+            }
+          </div>
+
+          <!-- Asunto / Motivo -->
+          <div>
+            <label for="contact-subject" class="block font-mono text-xs font-semibold text-zinc-300 dark:text-zinc-300 light:text-slate-700 mb-1.5">
+              {{ t().subjectLabel }}
+            </label>
+            <select
+              id="contact-subject"
+              formControlName="subject"
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950/80 px-4 py-2.5 text-sm text-zinc-100 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-zinc-800 dark:bg-zinc-950/80 dark:text-zinc-100 light:border-slate-300 light:bg-slate-50 light:text-slate-900"
+            >
+              <option value="remote">{{ t().subjectOptions.remote }}</option>
+              <option value="project">{{ t().subjectOptions.project }}</option>
+              <option value="technical">{{ t().subjectOptions.technical }}</option>
+              <option value="other">{{ t().subjectOptions.other }}</option>
+            </select>
+          </div>
+
+          <!-- Mensaje -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label for="contact-message" class="block font-mono text-xs font-semibold text-zinc-300 dark:text-zinc-300 light:text-slate-700">
+                {{ t().messageLabel }} <span class="text-rose-400">*</span>
+              </label>
+              <span class="font-mono text-[11px] text-zinc-500">
+                {{ currentMessageLength() }} / 15 {{ t().charCount }}
+              </span>
+            </div>
+            <textarea
+              id="contact-message"
+              rows="4"
+              formControlName="message"
+              [placeholder]="t().messagePlaceholder"
+              [class.border-rose-500]="isFieldInvalid('message')"
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950/80 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-zinc-800 dark:bg-zinc-950/80 dark:text-zinc-100 light:border-slate-300 light:bg-slate-50 light:text-slate-900"
+            ></textarea>
+            @if (isFieldInvalid('message')) {
+              <p class="mt-1 font-mono text-[11px] text-rose-400">
+                {{ langService.isEnglish() ? 'Message must be at least 15 characters long' : 'El mensaje debe tener al menos 15 caracteres' }}
+              </p>
+            }
+          </div>
+
+          <!-- Botón de Envío con Estado de Carga (Loading State) -->
+          <button
+            type="submit"
+            [disabled]="submissionState() === 'SUBMITTING'"
+            class="flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 py-3 text-sm font-bold text-zinc-950 shadow-lg shadow-cyan-500/25 transition-all duration-200 hover:bg-cyan-400 hover:shadow-cyan-500/40 disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            @if (submissionState() === 'SUBMITTING') {
+              <svg class="h-4 w-4 animate-spin text-zinc-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+              </svg>
+              <span>{{ t().sendingButton }}</span>
+            } @else {
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+              <span>{{ t().submitButton }}</span>
+            }
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+
+    <!-- Columna Derecha: Tarjetas Directas y Redes (5 columnas) -->
+    <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
+      
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold text-zinc-100 dark:text-zinc-100 light:text-slate-900">
+          {{ t().directChannels }}
+        </h3>
+        <p class="text-xs text-zinc-400 dark:text-zinc-400 light:text-slate-600 leading-relaxed">
+          {{ t().locationInfo }}
+        </p>
+
+        <!-- Tarjeta WhatsApp Directo -->
+        <a
+          [href]="dataService.profile.whatsappUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-4 rounded-2xl border border-emerald-500/20 bg-emerald-950/20 p-4 transition-all duration-200 hover:border-emerald-500/40 hover:bg-emerald-950/30 group"
+        >
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-zinc-100 group-hover:text-emerald-400 transition-colors">WhatsApp</div>
+            <div class="font-mono text-xs text-emerald-400">+504 9375-7672</div>
+          </div>
+        </a>
+
+        <!-- Tarjeta Correo Electrónico -->
+        <a
+          [href]="'mailto:' + dataService.profile.email"
+          class="flex items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 transition-all duration-200 hover:border-cyan-500/40 hover:bg-zinc-900 group dark:border-zinc-800 dark:bg-zinc-900/60 light:border-slate-200 light:bg-white"
+        >
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-950 text-cyan-400 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-zinc-100 group-hover:text-cyan-400 transition-colors">Email</div>
+            <div class="font-mono text-xs text-zinc-400">{{ dataService.profile.email }}</div>
+          </div>
+        </a>
+
+        <!-- Tarjeta LinkedIn -->
+        <a
+          [href]="dataService.profile.linkedinUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 transition-all duration-200 hover:border-indigo-500/40 hover:bg-zinc-900 group dark:border-zinc-800 dark:bg-zinc-900/60 light:border-slate-200 light:bg-white"
+        >
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-950 text-indigo-400 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-zinc-100 group-hover:text-indigo-400 transition-colors">LinkedIn</div>
+            <div class="font-mono text-xs text-zinc-400">kevin-torres-developer</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Tarjeta Resumen de Currículum para Descarga -->
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-5 dark:border-zinc-800 dark:bg-zinc-950/70 light:border-slate-200 light:bg-slate-50">
+        <div class="text-xs font-semibold text-zinc-300 dark:text-zinc-300 light:text-slate-800 mb-2">
+          {{ langService.isEnglish() ? 'Curriculum Vitae (PDF Version)' : 'Currículum Vitae (Formato PDF)' }}
+        </div>
+        <div class="flex items-center gap-2">
+          <a
+            [href]="dataService.profile.cvDownloadUrls.es"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+            class="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 font-mono text-xs font-medium text-zinc-200 hover:border-cyan-500 hover:text-cyan-300"
+          >
+            CV Español (PDF)
+          </a>
+          <a
+            [href]="dataService.profile.cvDownloadUrls.en"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+            class="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 font-mono text-xs font-medium text-zinc-200 hover:border-cyan-500 hover:text-cyan-300"
+          >
+            Resume English (PDF)
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

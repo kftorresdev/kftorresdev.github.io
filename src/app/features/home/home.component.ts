@@ -6,6 +6,7 @@ import { SkillsMatrixComponent } from '../skills/skills-matrix.component';
 import { TimelineComponent } from '../timeline/timeline.component';
 import { ProjectCardComponent } from '../projects/components/project-card/project-card.component';
 import { ArchitectureModalComponent } from '../projects/components/architecture-modal/architecture-modal.component';
+import { ContactFormComponent } from '../contact/contact-form.component';
 import { ProjectItem } from '../../core/models/portfolio.models';
 
 /**
@@ -21,6 +22,7 @@ import { ProjectItem } from '../../core/models/portfolio.models';
     TimelineComponent,
     ProjectCardComponent,
     ArchitectureModalComponent,
+    ContactFormComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
