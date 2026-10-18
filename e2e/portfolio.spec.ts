@@ -31,7 +31,7 @@ test.describe('Portafolio Profesional — Kevin Fernando Torres Castro', () => {
     await expect(page.locator('nav a[href="#habilidades"]')).toHaveText('Habilidades');
 
     // Cambiar a Inglés
-    const langToggle = page.locator('button[aria-label="Toggle language"]').first();
+    const langToggle = page.locator('button:has-text("ES / EN"), button[aria-label*="inglés"], button[aria-label*="Spanish"]').first();
     await langToggle.click();
 
     // Verificar actualización instantánea de textos en Inglés
@@ -49,7 +49,7 @@ test.describe('Portafolio Profesional — Kevin Fernando Torres Castro', () => {
     const htmlElement = page.locator('html');
     await expect(htmlElement).toHaveClass(/dark/);
 
-    const themeToggle = page.locator('button[aria-label="Toggle visual theme"]').first();
+    const themeToggle = page.locator('button[aria-label*="tema"], button[aria-label*="theme"]').first();
     await themeToggle.click();
 
     // Debe removerse la clase dark para activar el modo claro

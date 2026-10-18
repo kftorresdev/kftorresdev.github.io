@@ -4,7 +4,11 @@
       
       <!-- Identidad y Copyright -->
       <div class="flex flex-col items-center gap-2 md:items-start">
-        <a href="#" class="font-mono text-base font-bold text-zinc-100 dark:text-zinc-100 light:text-slate-900">
+        <a
+          href="#"
+          [attr.aria-label]="langService.isEnglish() ? 'Kevin Torres - Inicio' : 'Kevin Torres - Home'"
+          class="rounded-lg font-mono text-base font-bold text-zinc-100 transition-colors hover:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:text-zinc-100 light:text-slate-900"
+        >
           &lt;/&gt; kftorres<span class="text-cyan-400">.dev</span>
         </a>
         <p class="text-xs text-zinc-500 dark:text-zinc-500 light:text-slate-500 text-center md:text-left">
@@ -19,51 +23,55 @@
       <div class="flex flex-col items-center gap-3 md:items-end">
         <div class="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 font-mono text-xs text-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/60 light:border-slate-200 light:bg-white light:text-slate-600">
           <span class="relative flex h-2 w-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="absolute inline-flex h-full w-full animate-ping motion-reduce:animate-none rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
           </span>
           <span>{{ dataService.profile.location[langService.currentLanguage()] }} (UTC-6)</span>
         </div>
 
-        <div class="flex items-center gap-4 text-sm">
+        <nav class="flex flex-wrap items-center justify-center gap-2 text-sm" aria-label="Enlaces sociales y de contacto">
           <a
             [href]="dataService.profile.githubUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-zinc-400 transition-colors hover:text-cyan-400 dark:text-zinc-400 light:text-slate-600 light:hover:text-cyan-600"
+            class="inline-flex min-h-[44px] items-center px-2 py-1 text-zinc-400 transition-colors hover:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-md dark:text-zinc-400 light:text-slate-600 light:hover:text-cyan-600"
             title="GitHub"
+            [attr.aria-label]="'GitHub (@kftorresdev)'"
           >
             GitHub
           </a>
-          <span class="text-zinc-700 dark:text-zinc-700 light:text-slate-300">&middot;</span>
+          <span class="text-zinc-700 dark:text-zinc-700 light:text-slate-300" aria-hidden="true">&middot;</span>
           <a
             [href]="dataService.profile.linkedinUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-zinc-400 transition-colors hover:text-cyan-400 dark:text-zinc-400 light:text-slate-600 light:hover:text-cyan-600"
+            class="inline-flex min-h-[44px] items-center px-2 py-1 text-zinc-400 transition-colors hover:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-md dark:text-zinc-400 light:text-slate-600 light:hover:text-cyan-600"
             title="LinkedIn"
+            [attr.aria-label]="'LinkedIn: Kevin Torres'"
           >
             LinkedIn
           </a>
-          <span class="text-zinc-700 dark:text-zinc-700 light:text-slate-300">&middot;</span>
+          <span class="text-zinc-700 dark:text-zinc-700 light:text-slate-300" aria-hidden="true">&middot;</span>
           <a
             [href]="dataService.profile.whatsappUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-zinc-400 transition-colors hover:text-emerald-400 dark:text-zinc-400 light:text-slate-600 light:hover:text-emerald-600"
+            class="inline-flex min-h-[44px] items-center px-2 py-1 text-zinc-400 transition-colors hover:text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-md dark:text-zinc-400 light:text-slate-600 light:hover:text-emerald-600"
             title="WhatsApp"
+            [attr.aria-label]="'WhatsApp: +504 9375-7672'"
           >
             WhatsApp
           </a>
-          <span class="text-zinc-700 dark:text-zinc-700 light:text-slate-300">&middot;</span>
+          <span class="text-zinc-700 dark:text-zinc-700 light:text-slate-300" aria-hidden="true">&middot;</span>
           <a
             [href]="'mailto:' + dataService.profile.email"
-            class="text-zinc-400 transition-colors hover:text-cyan-400 dark:text-zinc-400 light:text-slate-600 light:hover:text-cyan-600"
+            class="inline-flex min-h-[44px] items-center px-2 py-1 text-zinc-400 transition-colors hover:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-md dark:text-zinc-400 light:text-slate-600 light:hover:text-cyan-600"
             title="Email"
+            [attr.aria-label]="'Email: ' + dataService.profile.email"
           >
             Email
           </a>
-        </div>
+        </nav>
       </div>
 
     </div>

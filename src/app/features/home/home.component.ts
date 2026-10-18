@@ -43,6 +43,9 @@ export class HomeComponent {
    * Abre el modal de arquitectura para el proyecto seleccionado.
    */
   openProjectModal(project: ProjectItem): void {
+    if (!project) {
+      return;
+    }
     this.selectedProjectForModal.set(project);
   }
 

@@ -54,9 +54,15 @@ export class ContactApiService {
           }
           throw new Error('Respuesta no satisfactoria del servicio de mensajería');
         }),
-        // Escudo 3: Fallback defensivo ante fallas de red o rechazo de servidor
-        catchError((error) => {
-          return throwError(() => new Error(error?.message || 'Fallo de conexión en el envío de contacto'));
+        // Escudo 3: Plan de contingencia defensivo ante fallas de red o rechazo de servidor
+        catchError((error: unknown) => {
+          const errorMessage =
+            error instanceof Error
+              ? error.message
+              : typeof error === 'object' && error !== null && 'message' in error
+                ? String((error as { message: unknown }).message)
+                : 'Fallo de conexión en el envío de contacto';
+          return throwError(() => new Error(errorMessage));
         })
       );
   }

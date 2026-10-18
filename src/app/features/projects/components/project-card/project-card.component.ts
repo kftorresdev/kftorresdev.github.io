@@ -31,6 +31,10 @@ export class ProjectCardComponent {
   readonly t = computed(() => this.langService.dictionary().projectsSection);
 
   onOpenArchitecture(): void {
-    this.openModal.emit(this.project());
+    const proj = this.project();
+    if (!proj) {
+      return;
+    }
+    this.openModal.emit(proj);
   }
 }

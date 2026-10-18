@@ -15,6 +15,11 @@ interface TranslationDictionary {
     readonly toggleTheme: string;
     readonly toggleLanguage: string;
     readonly mobileMenu: string;
+    readonly closeMenu: string;
+    readonly themeLight: string;
+    readonly themeDark: string;
+    readonly skipToContent: string;
+    readonly homeLink: string;
   };
   readonly hero: {
     readonly availableBadge: string;
@@ -36,6 +41,13 @@ interface TranslationDictionary {
     readonly challengesSolved: string;
     readonly technologiesUsed: string;
     readonly closeDetails: string;
+    readonly closeModal: string;
+    readonly tabOverview: string;
+    readonly tabArchitecture: string;
+    readonly tabMetrics: string;
+    readonly liveDemoAria: string;
+    readonly sourceCodeAria: string;
+    readonly architectureDetailsAria: string;
   };
   readonly skillsSection: {
     readonly badge: string;
@@ -89,6 +101,14 @@ interface TranslationDictionary {
     readonly emailDirect: string;
     readonly locationInfo: string;
     readonly charCount: string;
+    readonly sendAnotherMessage: string;
+    readonly validationName: string;
+    readonly validationEmail: string;
+    readonly validationMessage: string;
+  };
+  readonly floatingActions: {
+    readonly scrollToTop: string;
+    readonly whatsappDirect: string;
   };
   readonly footer: {
     readonly allRightsReserved: string;
@@ -109,6 +129,11 @@ const TRANSLATIONS: Record<SupportedLanguage, TranslationDictionary> = {
       toggleTheme: 'Alternar tema visual',
       toggleLanguage: 'Cambiar a inglés',
       mobileMenu: 'Menú principal',
+      closeMenu: 'Cerrar menú principal',
+      themeLight: 'Modo Claro',
+      themeDark: 'Modo Oscuro',
+      skipToContent: 'Saltar al contenido principal',
+      homeLink: 'Kevin Torres - Inicio',
     },
     hero: {
       availableBadge: 'Disponible para Trabajo Remoto (UTC-6 / EE. UU. Overlap)',
@@ -132,6 +157,13 @@ const TRANSLATIONS: Record<SupportedLanguage, TranslationDictionary> = {
       challengesSolved: 'Retos de Negocio Resueltos',
       technologiesUsed: 'Stack Tecnológico',
       closeDetails: 'Cerrar Detalles',
+      closeModal: 'Cerrar ventana de detalles',
+      tabOverview: 'Visión Ejecutiva',
+      tabArchitecture: 'Módulos del Sistema',
+      tabMetrics: 'Pruebas & Métricas',
+      liveDemoAria: 'Ver demo en vivo de',
+      sourceCodeAria: 'Ver código fuente en GitHub de',
+      architectureDetailsAria: 'Ver arquitectura y retos de',
     },
     skillsSection: {
       badge: 'Competencias Técnicas',
@@ -189,6 +221,14 @@ const TRANSLATIONS: Record<SupportedLanguage, TranslationDictionary> = {
       emailDirect: 'kevin.torres.9800@gmail.com',
       locationInfo: 'Tegucigalpa, Honduras (UTC-6) · Cobertura completa de horario con EE. UU.',
       charCount: 'caracteres mínimos',
+      sendAnotherMessage: 'Enviar otro mensaje',
+      validationName: 'Ingresa un nombre válido (mínimo 3 caracteres)',
+      validationEmail: 'Ingresa un correo electrónico con formato válido',
+      validationMessage: 'El mensaje debe tener al menos 15 caracteres',
+    },
+    floatingActions: {
+      scrollToTop: 'Volver arriba',
+      whatsappDirect: 'Contactar por WhatsApp',
     },
     footer: {
       allRightsReserved: 'Todos los derechos reservados.',
@@ -207,6 +247,11 @@ const TRANSLATIONS: Record<SupportedLanguage, TranslationDictionary> = {
       toggleTheme: 'Toggle visual theme',
       toggleLanguage: 'Switch to Spanish',
       mobileMenu: 'Main menu',
+      closeMenu: 'Close main menu',
+      themeLight: 'Light Mode',
+      themeDark: 'Dark Mode',
+      skipToContent: 'Skip to main content',
+      homeLink: 'Kevin Torres - Home',
     },
     hero: {
       availableBadge: 'Available for Remote Work (UTC-6 / US Timezone Overlap)',
@@ -230,6 +275,13 @@ const TRANSLATIONS: Record<SupportedLanguage, TranslationDictionary> = {
       challengesSolved: 'Business Challenges Solved',
       technologiesUsed: 'Tech Stack',
       closeDetails: 'Close Details',
+      closeModal: 'Close details dialog',
+      tabOverview: 'Executive Overview',
+      tabArchitecture: 'System Modules',
+      tabMetrics: 'QA & Test Matrix',
+      liveDemoAria: 'View live demo of',
+      sourceCodeAria: 'View source code on GitHub for',
+      architectureDetailsAria: 'View architecture and technical details for',
     },
     skillsSection: {
       badge: 'Core Competencies',
@@ -287,6 +339,14 @@ const TRANSLATIONS: Record<SupportedLanguage, TranslationDictionary> = {
       emailDirect: 'kevin.torres.9800@gmail.com',
       locationInfo: 'Tegucigalpa, Honduras (UTC-6) · Full business day overlap with US tech hubs.',
       charCount: 'minimum characters',
+      sendAnotherMessage: 'Send another message',
+      validationName: 'Please provide a valid name (min. 3 characters)',
+      validationEmail: 'Please provide a valid corporate or personal email',
+      validationMessage: 'Message must be at least 15 characters long',
+    },
+    floatingActions: {
+      scrollToTop: 'Scroll to top',
+      whatsappDirect: 'Contact via WhatsApp',
     },
     footer: {
       allRightsReserved: 'All rights reserved.',

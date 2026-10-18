@@ -4,7 +4,8 @@
     (click)="onBackdropClick($event)"
     role="dialog"
     aria-modal="true"
-    [attr.aria-label]="proj.title"
+    aria-labelledby="architecture-modal-title"
+    aria-describedby="architecture-modal-subtitle"
   >
     <div
       class="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/95 shadow-2xl shadow-cyan-500/10 dark:border-zinc-800 dark:bg-zinc-950/95 light:border-slate-200 light:bg-white"
@@ -22,56 +23,74 @@
             </span>
           </div>
 
-          <h3 class="text-2xl font-bold text-zinc-100 sm:text-3xl dark:text-zinc-100 light:text-slate-900">
+          <h3 id="architecture-modal-title" class="text-2xl font-bold text-zinc-100 sm:text-3xl dark:text-zinc-100 light:text-slate-900">
             {{ proj.title }}
           </h3>
-          <p class="font-mono text-xs text-cyan-400 dark:text-cyan-400 light:text-cyan-600 mt-1">
+          <p id="architecture-modal-subtitle" class="font-mono text-xs text-cyan-400 dark:text-cyan-400 light:text-cyan-600 mt-1">
             {{ proj.subtitle[langService.currentLanguage()] }}
           </p>
         </div>
 
         <button
+          id="modal-close-button"
           type="button"
           (click)="onClose()"
-          class="rounded-xl border border-zinc-800 bg-zinc-900 p-2 text-zinc-400 transition-colors hover:border-zinc-700 hover:text-white dark:border-zinc-800 dark:bg-zinc-900 light:border-slate-200 light:bg-slate-100 light:text-slate-600"
-          aria-label="Cerrar modal"
+          class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-400 transition-colors hover:border-zinc-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:border-zinc-800 dark:bg-zinc-900 light:border-slate-200 light:bg-slate-100 light:text-slate-600"
+          [attr.aria-label]="t().closeModal"
+          title="Cerrar modal"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
 
-      <!-- Barra de Pestañas del Modal -->
-      <div class="flex border-b border-zinc-800/80 px-6 font-mono text-xs font-semibold dark:border-zinc-800/80 light:border-slate-200">
+      <!-- Barra de Pestañas del Modal (Accesible vía WAI-ARIA) -->
+      <div
+        role="tablist"
+        [attr.aria-label]="langService.isEnglish() ? 'Project technical inspection' : 'Inspección técnica del proyecto'"
+        class="flex border-b border-zinc-800/80 px-6 font-mono text-xs font-semibold dark:border-zinc-800/80 light:border-slate-200"
+      >
         <button
+          id="modal-tab-overview"
+          role="tab"
           type="button"
           (click)="setTab('overview')"
+          [attr.aria-selected]="activeTab() === 'overview'"
+          aria-controls="modal-panel-overview"
           [class.border-cyan-400]="activeTab() === 'overview'"
           [class.text-cyan-400]="activeTab() === 'overview'"
-          class="-mb-px border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors"
+          class="-mb-px min-h-[44px] border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
         >
-          {{ langService.isEnglish() ? 'Executive Overview' : 'Visión Ejecutiva' }}
+          {{ t().tabOverview }}
         </button>
 
         <button
+          id="modal-tab-architecture"
+          role="tab"
           type="button"
           (click)="setTab('architecture')"
+          [attr.aria-selected]="activeTab() === 'architecture'"
+          aria-controls="modal-panel-architecture"
           [class.border-cyan-400]="activeTab() === 'architecture'"
           [class.text-cyan-400]="activeTab() === 'architecture'"
-          class="-mb-px border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors"
+          class="-mb-px min-h-[44px] border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
         >
-          {{ langService.isEnglish() ? 'System Modules' : 'Módulos del Sistema' }}
+          {{ t().tabArchitecture }}
         </button>
 
         <button
+          id="modal-tab-metrics"
+          role="tab"
           type="button"
           (click)="setTab('metrics')"
+          [attr.aria-selected]="activeTab() === 'metrics'"
+          aria-controls="modal-panel-metrics"
           [class.border-cyan-400]="activeTab() === 'metrics'"
           [class.text-cyan-400]="activeTab() === 'metrics'"
-          class="-mb-px border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors"
+          class="-mb-px min-h-[44px] border-b-2 border-transparent py-3 px-3 text-zinc-400 hover:text-zinc-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
         >
-          {{ langService.isEnglish() ? 'QA & Test Matrix' : 'Pruebas & Métricas' }}
+          {{ t().tabMetrics }}
         </button>
       </div>
 
@@ -80,7 +99,13 @@
         
         <!-- Pestaña 1: Visión Ejecutiva -->
         @if (activeTab() === 'overview') {
-          <div class="space-y-6">
+          <div
+            id="modal-panel-overview"
+            role="tabpanel"
+            aria-labelledby="modal-tab-overview"
+            tabindex="0"
+            class="space-y-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/50 rounded-xl"
+          >
             <!-- Dolor de Negocio -->
             <div class="rounded-2xl border border-red-500/20 bg-red-950/10 p-5">
               <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-red-400 mb-2">
@@ -107,9 +132,9 @@
                 {{ langService.isEnglish() ? 'Key Engineering Highlights:' : 'Aspectos Clave de Ingeniería:' }}
               </h4>
               <ul class="space-y-2 text-sm text-zinc-300 dark:text-zinc-300 light:text-slate-700">
-                @for (highlight of proj.keyHighlights[langService.currentLanguage()]; track highlight) {
+                @for (highlight of proj.keyHighlights[langService.currentLanguage()]; track $index) {
                   <li class="flex items-start gap-2.5">
-                    <span class="text-cyan-400 mt-1 flex-shrink-0">&bull;</span>
+                    <span class="text-cyan-400 mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
                     <span class="leading-relaxed">{{ highlight }}</span>
                   </li>
                 }
@@ -120,11 +145,17 @@
 
         <!-- Pestaña 2: Módulos del Sistema -->
         @if (activeTab() === 'architecture') {
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div
+            id="modal-panel-architecture"
+            role="tabpanel"
+            aria-labelledby="modal-tab-architecture"
+            tabindex="0"
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/50 rounded-xl"
+          >
             @for (mod of proj.architectureModules; track mod.id) {
               <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 dark:border-zinc-800 dark:bg-zinc-900/50 light:border-slate-200 light:bg-slate-50">
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                  <span class="h-2 w-2 rounded-full bg-cyan-400" aria-hidden="true"></span>
                   <h4 class="font-bold text-sm text-zinc-100 dark:text-zinc-100 light:text-slate-900">
                     {{ mod.title[langService.currentLanguage()] }}
                   </h4>
@@ -139,7 +170,13 @@
 
         <!-- Pestaña 3: Pruebas & Métricas -->
         @if (activeTab() === 'metrics') {
-          <div class="space-y-6">
+          <div
+            id="modal-panel-metrics"
+            role="tabpanel"
+            aria-labelledby="modal-tab-metrics"
+            tabindex="0"
+            class="space-y-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/50 rounded-xl"
+          >
             <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
               @for (metric of proj.metrics; track metric.id) {
                 <div class="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 text-center">
@@ -159,7 +196,7 @@
                 {{ langService.isEnglish() ? 'Verified Technologies:' : 'Tecnologías Verificadas:' }}
               </h4>
               <div class="flex flex-wrap gap-2">
-                @for (tech of proj.techStack; track tech) {
+                @for (tech of proj.techStack; track $index) {
                   <span class="rounded-lg border border-zinc-700 bg-zinc-800 px-2.5 py-1 font-mono text-xs font-medium text-zinc-300">
                     {{ tech }}
                   </span>
@@ -171,17 +208,18 @@
 
       </div>
 
-      <!-- Pie del Modal con Enlaces Externos -->
+      <!-- Pie del Modal con Enlaces Externos y Ergonomía Táctil -->
       <div class="flex flex-wrap items-center justify-between gap-3 border-t border-zinc-800/80 bg-zinc-950 p-6 dark:border-zinc-800/80 light:border-slate-200">
-        <div class="flex items-center gap-3">
+        <div class="flex flex-wrap items-center gap-3">
           @if (proj.liveDemoUrl) {
             <a
               [href]="proj.liveDemoUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 rounded-xl bg-cyan-500 px-4 py-2 text-xs font-semibold text-zinc-950 shadow-md shadow-cyan-500/20 hover:bg-cyan-400 transition-colors"
+              class="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl bg-cyan-500 px-4 py-2 text-xs font-semibold text-zinc-950 shadow-md shadow-cyan-500/20 hover:bg-cyan-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+              [attr.aria-label]="t().liveDemoAria + ' ' + proj.title"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
               </svg>
               <span>{{ t().liveDemo }}</span>
@@ -192,9 +230,10 @@
             [href]="proj.githubUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-xs font-semibold text-zinc-200 hover:border-zinc-500 hover:text-white transition-colors"
+            class="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-xs font-semibold text-zinc-200 hover:border-zinc-500 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+            [attr.aria-label]="t().sourceCodeAria + ' ' + proj.title"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
             </svg>
             <span>{{ t().sourceCode }}</span>
@@ -204,7 +243,8 @@
         <button
           type="button"
           (click)="onClose()"
-          class="rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-400 hover:text-zinc-200 transition-colors"
+          class="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-400 hover:text-zinc-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+          [attr.aria-label]="t().closeModal"
         >
           {{ t().closeDetails }}
         </button>

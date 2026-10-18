@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../core/services/language.service';
 import { ThemeService } from '../../../core/services/theme.service';
@@ -52,6 +52,16 @@ export class NavbarComponent {
    */
   closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
+  }
+
+  /**
+   * Cierra el menú móvil accesiblemente al pulsar la tecla Escape.
+   */
+  @HostListener('window:keydown.escape')
+  onEscape(): void {
+    if (this.isMobileMenuOpen()) {
+      this.closeMobileMenu();
+    }
   }
 
   /**

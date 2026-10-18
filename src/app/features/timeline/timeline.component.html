@@ -15,18 +15,18 @@
   <div class="mx-auto max-w-4xl">
     
     <!-- Línea de Tiempo de Experiencias Laborales -->
-    <div class="relative border-l-2 border-zinc-800 dark:border-zinc-800 light:border-slate-200 ml-4 sm:ml-6 pl-6 sm:pl-8 space-y-12">
+    <div class="relative border-l-2 border-zinc-800 dark:border-zinc-800 light:border-slate-200 ml-2 sm:ml-6 pl-5 sm:pl-8 space-y-12">
       
       @for (job of dataService.workExperience; track job.id) {
         <div class="relative group">
           
           <!-- Nodo Conector en la Línea -->
           <span
-            class="absolute -left-[31px] sm:-left-[39px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-zinc-950 bg-zinc-700 transition-colors group-hover:bg-cyan-400 dark:border-zinc-950 light:border-white"
+            class="absolute -left-[27px] sm:-left-[39px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-zinc-950 bg-zinc-700 transition-colors group-hover:bg-cyan-400 dark:border-zinc-950 light:border-white"
             [class.!bg-emerald-400]="job.isCurrent"
           >
             @if (job.isCurrent) {
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="absolute inline-flex h-full w-full animate-ping motion-reduce:animate-none rounded-full bg-emerald-400 opacity-75"></span>
             }
           </span>
 
@@ -59,7 +59,7 @@
 
             <!-- Logros Clave (Viñetas de Ingeniería) -->
             <ul class="space-y-2 mb-5 text-sm text-zinc-300 dark:text-zinc-300 light:text-slate-700">
-              @for (achievement of job.achievements[langService.currentLanguage()]; track achievement) {
+              @for (achievement of job.achievements[langService.currentLanguage()]; track $index) {
                 <li class="flex items-start gap-2.5">
                   <span class="text-cyan-400 mt-1 flex-shrink-0">&bull;</span>
                   <span class="leading-relaxed">{{ achievement }}</span>
@@ -73,7 +73,7 @@
                 {{ t().techApplied }}
               </div>
               <div class="flex flex-wrap gap-1.5">
-                @for (tech of job.technologies; track tech) {
+                @for (tech of job.technologies; track $index) {
                   <span class="rounded-md border border-zinc-800 bg-zinc-950/60 px-2 py-0.5 font-mono text-[11px] text-zinc-300 dark:border-zinc-800 dark:bg-zinc-950/60 light:border-slate-200 light:bg-slate-100 light:text-slate-700">
                     {{ tech }}
                   </span>

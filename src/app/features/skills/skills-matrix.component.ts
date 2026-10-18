@@ -51,6 +51,9 @@ export class SkillsMatrixComponent {
    * Cambia la categoría de filtro activa.
    */
   setFilter(categoryKey: SkillCategoryKey | 'all'): void {
+    if (!categoryKey) {
+      return;
+    }
     this.activeCategory.set(categoryKey);
   }
 

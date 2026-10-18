@@ -24,12 +24,8 @@ export class FloatingActionsComponent {
   readonly showScrollTop = signal<boolean>(false);
 
   readonly whatsappUrl = computed(() => this.dataService.profile.whatsappUrl);
-  readonly tooltipText = computed(() =>
-    this.langService.isEnglish() ? 'Message on WhatsApp' : 'Contactar por WhatsApp'
-  );
-  readonly scrollTopText = computed(() =>
-    this.langService.isEnglish() ? 'Scroll to top' : 'Volver arriba'
-  );
+  readonly tooltipText = computed(() => this.langService.dictionary().floatingActions.whatsappDirect);
+  readonly scrollTopText = computed(() => this.langService.dictionary().floatingActions.scrollToTop);
 
   @HostListener('window:scroll')
   onWindowScroll(): void {
@@ -40,7 +36,8 @@ export class FloatingActionsComponent {
 
   scrollToTop(): void {
     if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
     }
   }
 }

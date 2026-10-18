@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { FloatingActionsComponent } from './shared/components/floating-actions/floating-actions.component';
+import { LanguageService } from './core/services/language.service';
 
 /**
  * Componente raíz de la aplicación (App Shell).
@@ -16,4 +17,7 @@ import { FloatingActionsComponent } from './shared/components/floating-actions/f
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {}
+export class App {
+  readonly langService = inject(LanguageService);
+  readonly t = computed(() => this.langService.dictionary().nav);
+}

@@ -13,14 +13,15 @@
   </div>
 
   <!-- Barra de Filtros Interactivos (Signals) -->
-  <div class="mb-10 flex flex-wrap items-center justify-center gap-2">
+  <div role="group" [attr.aria-label]="langService.isEnglish() ? 'Filter skills by category' : 'Filtrar habilidades por categoría'" class="mb-10 flex flex-wrap items-center justify-center gap-2">
     <button
       type="button"
       (click)="setFilter('all')"
+      [attr.aria-pressed]="activeCategory() === 'all'"
       [class.border-cyan-500]="activeCategory() === 'all'"
       [class.bg-cyan-950]="activeCategory() === 'all'"
       [class.text-cyan-300]="activeCategory() === 'all'"
-      class="rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
+      class="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2.5 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
     >
       {{ t().filterAll }}
     </button>
@@ -28,10 +29,11 @@
     <button
       type="button"
       (click)="setFilter('frontend')"
+      [attr.aria-pressed]="activeCategory() === 'frontend'"
       [class.border-cyan-500]="activeCategory() === 'frontend'"
       [class.bg-cyan-950]="activeCategory() === 'frontend'"
       [class.text-cyan-300]="activeCategory() === 'frontend'"
-      class="rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
+      class="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2.5 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
     >
       {{ t().filterFrontend }}
     </button>
@@ -39,10 +41,11 @@
     <button
       type="button"
       (click)="setFilter('mobile')"
+      [attr.aria-pressed]="activeCategory() === 'mobile'"
       [class.border-cyan-500]="activeCategory() === 'mobile'"
       [class.bg-cyan-950]="activeCategory() === 'mobile'"
       [class.text-cyan-300]="activeCategory() === 'mobile'"
-      class="rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
+      class="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2.5 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
     >
       {{ t().filterMobile }}
     </button>
@@ -50,10 +53,11 @@
     <button
       type="button"
       (click)="setFilter('backend')"
+      [attr.aria-pressed]="activeCategory() === 'backend'"
       [class.border-cyan-500]="activeCategory() === 'backend'"
       [class.bg-cyan-950]="activeCategory() === 'backend'"
       [class.text-cyan-300]="activeCategory() === 'backend'"
-      class="rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
+      class="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2.5 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
     >
       {{ t().filterBackend }}
     </button>
@@ -61,10 +65,11 @@
     <button
       type="button"
       (click)="setFilter('devops_testing')"
+      [attr.aria-pressed]="activeCategory() === 'devops_testing'"
       [class.border-cyan-500]="activeCategory() === 'devops_testing'"
       [class.bg-cyan-950]="activeCategory() === 'devops_testing'"
       [class.text-cyan-300]="activeCategory() === 'devops_testing'"
-      class="rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
+      class="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2.5 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
     >
       {{ t().filterDevOps }}
     </button>
@@ -72,10 +77,11 @@
     <button
       type="button"
       (click)="setFilter('architecture')"
+      [attr.aria-pressed]="activeCategory() === 'architecture'"
       [class.border-cyan-500]="activeCategory() === 'architecture'"
       [class.bg-cyan-950]="activeCategory() === 'architecture'"
       [class.text-cyan-300]="activeCategory() === 'architecture'"
-      class="rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
+      class="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2.5 font-mono text-xs font-semibold text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 dark:border-zinc-800 dark:bg-zinc-900/80 light:border-slate-200 light:bg-white light:text-slate-600"
     >
       {{ t().filterArchitecture }}
     </button>
@@ -83,8 +89,12 @@
 
   <!-- Estado Vacío (Empty State conforme a la Constitución) -->
   @if (isEmpty()) {
-    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-12 text-center backdrop-blur-md">
-      <svg class="mx-auto h-12 w-12 text-zinc-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div
+      role="status"
+      aria-live="polite"
+      class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-12 text-center backdrop-blur-md"
+    >
+      <svg class="mx-auto h-12 w-12 text-zinc-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
       <h3 class="mt-4 text-lg font-semibold text-zinc-200">{{ t().emptyStateTitle }}</h3>
@@ -92,7 +102,7 @@
       <button
         type="button"
         (click)="resetFilter()"
-        class="mt-5 inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-4 py-2 text-xs font-semibold text-zinc-950 hover:bg-cyan-400"
+        class="mt-5 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-cyan-500 px-5 py-2.5 text-xs font-semibold text-zinc-950 hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
       >
         {{ t().resetFilter }}
       </button>
@@ -119,7 +129,11 @@
                 <div class="flex items-center justify-between rounded-xl border border-zinc-800/60 bg-zinc-950/50 p-3 transition-colors hover:border-zinc-700 dark:border-zinc-800/60 dark:bg-zinc-950/50 light:border-slate-200 light:bg-slate-50">
                   <div class="flex items-center gap-2">
                     @if (skill.isFeatured) {
-                      <span class="h-1.5 w-1.5 rounded-full bg-cyan-400" title="Destacado"></span>
+                      <span
+                        class="h-1.5 w-1.5 rounded-full bg-cyan-400"
+                        [title]="langService.isEnglish() ? 'Featured skill' : 'Habilidad destacada'"
+                        [attr.aria-label]="langService.isEnglish() ? 'Featured skill' : 'Habilidad destacada'"
+                      ></span>
                     }
                     <span class="text-sm font-medium text-zinc-200 dark:text-zinc-200 light:text-slate-800">
                       {{ skill.name }}

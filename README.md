@@ -80,7 +80,7 @@ flowchart TD
 ```
 
 ### Tecnologías Clave:
-* **Framework:** Angular 21 Standalone en modo Zoneless (`provideExperimentalZonelessChangeDetection()`).
+* **Framework:** Angular 21 Standalone en modo Zoneless (`provideZonelessChangeDetection()`).
 * **Lenguaje:** TypeScript 5.9+ con tipado estricto (`"strict": true`, cero `any`).
 * **Estilos & Diseño:** Tailwind CSS v4.1 con tokens de diseño dinámicos para Dark y Light mode.
 * **Pruebas Unitarias:** Vitest 4.1 con entorno DOM para pruebas ultrarrápidas de Signals y servicios.

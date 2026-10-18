@@ -88,7 +88,7 @@ flowchart LR
 ├──────────────────────────┬────────────────────────────┬────────────────────────────────┤
 │ Capa de Verificación     │ Framework de Testing       │ Resultado Oficial              │
 ├──────────────────────────┼────────────────────────────┼────────────────────────────────┤
-│ Pruebas Unitarias / DOM  │ Vitest 4.1 / JSDOM         │ 30 / 30 Pasadas (100% Éxito)   │
+│ Pruebas Unitarias / DOM  │ Vitest 4.1 / JSDOM         │ 76 / 76 Pasadas (100% Éxito)   │
 │ Pruebas End-to-End (E2E) │ Playwright Test (Chromium) │ 6 Flujos Declarativos Listos   │
 │ Compilación AOT Prod     │ Angular 21 Application CLI │ 0 Errores / 0 Advertencias     │
 │ Gobernanza Constitucional│ Auditoría Manual y Lint    │ 100% Cumplimiento v2.3         │

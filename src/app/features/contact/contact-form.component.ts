@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageService } from '../../core/services/language.service';
 import { PortfolioDataService } from '../../core/services/portfolio-data.service';
 import { ContactApiService } from '../../core/services/contact-api.service';
@@ -51,9 +52,12 @@ export class ContactFormComponent {
   readonly currentMessageLength = signal<number>(0);
 
   constructor() {
-    this.contactForm.get('message')?.valueChanges.subscribe((val) => {
-      this.currentMessageLength.set(val ? val.length : 0);
-    });
+    this.contactForm
+      .get('message')
+      ?.valueChanges.pipe(takeUntilDestroyed())
+      .subscribe((val: string | null) => {
+        this.currentMessageLength.set(val ? val.length : 0);
+      });
   }
 
   /**
@@ -73,13 +77,19 @@ export class ContactFormComponent {
 
     this.submissionState.set('SUBMITTING');
 
-    const formValues = this.contactForm.value;
+    const formValues = this.contactForm.getRawValue() as Record<string, unknown>;
+    const name = typeof formValues['name'] === 'string' ? formValues['name'].trim() : '';
+    const email = typeof formValues['email'] === 'string' ? formValues['email'].trim() : '';
+    const subject = typeof formValues['subject'] === 'string' ? formValues['subject'].trim() : 'remote';
+    const message = typeof formValues['message'] === 'string' ? formValues['message'].trim() : '';
+    const gotcha = typeof formValues['_gotcha'] === 'string' ? formValues['_gotcha'].trim() : undefined;
+
     const payload: ContactMessageDto = {
-      name: formValues.name.trim(),
-      email: formValues.email.trim(),
-      subject: formValues.subject,
-      message: formValues.message.trim(),
-      _gotcha: formValues._gotcha,
+      name,
+      email,
+      subject,
+      message,
+      _gotcha: gotcha,
     };
 
     this.contactApi.sendMessage(payload).subscribe({
