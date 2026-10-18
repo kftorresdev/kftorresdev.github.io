@@ -1,0 +1,4 @@
+/* Estilos locales para FloatingActionsComponent */
+:host {
+  display: block;
+}

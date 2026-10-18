@@ -1,0 +1,4 @@
+/* Estilos locales para HomeComponent */
+:host {
+  display: block;
+}

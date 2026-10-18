@@ -1,0 +1,4 @@
+/* Estilos locales para FooterComponent */
+:host {
+  display: block;
+}

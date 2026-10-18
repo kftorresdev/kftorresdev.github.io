@@ -1,0 +1,4 @@
+/* Estilos locales de la barra de navegación complementarios a Tailwind */
+:host {
+  display: block;
+}
