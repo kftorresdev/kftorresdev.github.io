@@ -73,8 +73,8 @@ flowchart TD
         ContactApi["ContactApiService (HTTP POST Serverless / Honeypot)"]
     end
 
-    UI -->|Inyección inject() & Eventos| StateStore
-    StateStore -->|Signals Reactivos (Readonly)| UI
+    UI -->|Inyección con inject y Eventos| StateStore
+    StateStore -->|Signals Reactivos de Solo Lectura| UI
     StateStore -->|Consultas Tipadas| CoreData
     CoreData -->|DTOs Tipados| StateStore
 ```

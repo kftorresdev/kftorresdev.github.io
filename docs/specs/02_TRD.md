@@ -54,7 +54,7 @@ flowchart TD
         ContactApiService["ContactApiService\n(HttpClient POST hacia Formspree / EmailJS)"]
     end
 
-    Layer1 -->|Eventos de usuario / Inyección inject()| Layer2
+    Layer1 -->|Eventos de usuario e Inyección con inject| Layer2
     Layer2 -->|Lectura reactiva / Signals derivados| Layer1
     Layer2 -->|Peticiones tipadas| Layer3
     Layer3 -->|Datos tipados / DTOs inmutables| Layer2
