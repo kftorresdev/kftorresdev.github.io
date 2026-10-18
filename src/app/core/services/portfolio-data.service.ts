@@ -381,12 +381,12 @@ export class PortfolioDataService {
       id: 'exp-vesta',
       role: {
         es: 'Desarrollador de Sistemas – Frontend',
-        en: 'Systems Developer – Frontend Specialist',
+        en: 'Systems Developer – Frontend',
       },
       company: 'Grupo Vesta',
       sector: {
         es: 'Soluciones Logísticas y Cadena de Suministro',
-        en: 'Logistics Solutions & Supply Chain',
+        en: 'Logistics and Supply Chain Solutions',
       },
       period: {
         es: 'Abr 2024 – Actualidad',
@@ -395,22 +395,22 @@ export class PortfolioDataService {
       isCurrent: true,
       achievements: {
         es: [
-          'Lideró la migración arquitectónica integral de la plataforma de seguimiento de embarques Control Carrier Tower (CCT) de Angular 11 a Angular 21, eliminando vistas duplicadas y optimizando la mantenibilidad.',
-          'Modernizó el Sistema de Proyectos interno a Angular 21 Standalone modular, incorporando generación y descarga de reportes corporativos en Excel con ExcelJS.',
-          'Construyó el portal de Acciones de Personal con Angular 9, Metro UI y jsPDF, digitalizando solicitudes de recursos humanos con flujos de aprobación y firmas electrónicas.',
-          'Diseñó e implementó el módulo de Corte Diario del sistema de Análisis de Impacto Logístico (Angular 11) con grids dinámicos para auditar costos de flete en 4 tramos (Origen, Tránsito, Frontera y Destino).',
-          'Empaquetó y containerizó aplicaciones Angular con Docker y Nginx, estructurando pipelines de CI/CD en GitHub Actions con pruebas automatizadas en Playwright.',
-          'Desarrolló soluciones móviles: aplicación de almacén en Android (Java) con lectura óptica de códigos de barras (SQLite local) y aplicación ejecutiva en .NET MAUI para visualización de KPIs.',
-          'Integró el frontend con servicios backend y APIs REST desarrolladas en .NET Core trabajando bajo metodología Scrum.',
+          'Migración arquitectónica de la plataforma de seguimiento de embarques Control Carrier Tower (CCT) de Angular 11 a Angular 21, consolidando vistas y componentes duplicados y eliminando flujos legacy obsoletos para mejorar la mantenibilidad.',
+          'Modernización y refactorización del Sistema de Proyectos interno a Angular 21, reestructurándolo en componentes modulares, eliminando código duplicado e incorporando generación de reportes en Excel con ExcelJS.',
+          'Desarrollo e implementación del portal de Acciones de Personal (Angular 9, Metro UI, jsPDF), digitalizando solicitudes de RR. HH. con firmas electrónicas, flujos de aprobación y generación de documentos PDF.',
+          'Diseño y construcción del módulo de Corte Diario del sistema de Análisis de Impacto Logístico (Angular 11), con grids dinámicos para auditar costos de flete en cuatro tramos: origen, tránsito, frontera y destino.',
+          'Empaquetado y containerización de aplicaciones Angular en Docker con Nginx y configuración de pipelines en GitHub Actions para compilar y ejecutar pruebas E2E con Playwright en cada pull request.',
+          'Desarrollo de soluciones móviles: aplicación de almacén en Android (Java) con lectura de códigos de barra para registro documental en tiempo real (SQLite, APIs REST) y app ejecutiva en .NET MAUI para monitoreo de KPIs.',
+          'Integración frontend con APIs REST en .NET Core, trabajando bajo metodología Scrum.',
         ],
         en: [
-          'Led the end-to-end architectural migration of the Control Carrier Tower (CCT) freight tracking platform from Angular 11 to Angular 21, consolidating duplicated components and boosting code maintainability.',
-          'Modernized the internal Projects Management System to modular Angular 21 Standalone, integrating corporate Excel spreadsheet streaming with ExcelJS.',
-          'Engineered the Personnel Actions HR portal using Angular 9, Metro UI, and jsPDF, digitalizing employee requests with multi-stage approval workflows and digital signatures.',
-          'Designed and deployed the Daily Freight Cut module for the Logistics Impact Analysis system (Angular 11), auditing 4-leg shipping costs (Origin, Transit, Border, Destination).',
-          'Containerized Angular applications with multi-stage Docker and Nginx, authoring GitHub Actions CI/CD pipelines with automated Playwright E2E suites.',
-          'Developed industrial mobile solutions: Android (Java) warehouse app with barcode scanning (local SQLite) and .NET MAUI executive KPI companion.',
-          'Integrated frontend modules with .NET Core RESTful APIs under agile Scrum methodology.',
+          'Migrated the Control Carrier Tower (CCT) shipment-tracking platform from Angular 11 to Angular 21, consolidating duplicated views and components and removing obsolete legacy flows to improve maintainability.',
+          'Migrated the internal Project Management System to Angular 21, restructuring it into modular components, removing duplicated code, and supporting Excel report generation with ExcelJS.',
+          'Built the Personnel Actions portal (Angular 9, Metro UI, jsPDF) that digitized internal HR requests with electronic signatures, approval workflows, and PDF document generation.',
+          'Developed the Daily Cutoff module of the Logistics Impact Analysis system (Angular 11), with dynamic grids to audit freight costs across four route legs: origin, transit, border, and destination.',
+          'Containerized Angular applications with Docker and Nginx and set up GitHub Actions pipelines that build the app and run Playwright E2E tests on every pull request.',
+          'Developed mobile apps: an Android (Java) warehouse app with barcode scanning to register shipping documents in real time (SQLite, REST APIs), and an executive .NET MAUI app to monitor SLAs and project KPIs.',
+          'Integrated Angular frontends with .NET Core REST APIs, working in Scrum sprints.',
         ],
       },
       technologies: [
@@ -432,13 +432,13 @@ export class PortfolioDataService {
     {
       id: 'exp-movitext',
       role: {
-        es: 'Desarrollador Frontend',
-        en: 'Frontend Developer',
+        es: 'Desarrollador Full Stack',
+        en: 'Full Stack Developer',
       },
       company: 'MoviText',
       sector: {
-        es: 'Plataforma SaaS de Mensajería Masiva SMS',
-        en: 'Enterprise Bulk SMS SaaS Platform',
+        es: 'Plataforma SaaS de Mensajería Masiva',
+        en: 'Bulk Messaging SaaS Platform',
       },
       period: {
         es: 'Sep 2023 – Ene 2024',
@@ -447,16 +447,16 @@ export class PortfolioDataService {
       isCurrent: false,
       achievements: {
         es: [
-          'Desarrolló la interfaz de autogestión de la plataforma web de mensajería masiva en Angular, implementando carga perezosa (Lazy Loading) para optimizar el rendimiento inicial.',
-          'Construyó formularios reactivos complejos con validaciones asíncronas en tiempo real para la configuración de campañas de mensajería.',
-          'Diseñó e integró endpoints REST en NestJS y Sequelize con autenticación JWT, orquestando entornos locales con Docker Compose y almacenamiento en AWS S3.',
-          'Aseguró la calidad del código mediante la elaboración de pruebas unitarias frontend con Karma y Jasmine.',
+          'Desarrollo de interfaz de autogestión para la plataforma web de SMS masivos en Angular, aplicando módulos con lazy loading para optimizar el tiempo de carga inicial.',
+          'Construcción de formularios reactivos complejos con validaciones asíncronas en tiempo real para datos de clientes.',
+          'Diseño e integración de endpoints REST en NestJS y Sequelize con autenticación JWT, orquestando servicios locales con Docker Compose y almacenamiento en AWS S3.',
+          'Aseguramiento de calidad mediante la elaboración de pruebas unitarias frontend con Karma y Jasmine.',
         ],
         en: [
-          'Developed the customer self-service web interface for the bulk SMS platform in Angular, applying lazy-loaded routes to minimize initial bundle overhead.',
-          'Engineered complex reactive forms with real-time asynchronous validators for messaging campaign configurations.',
-          'Designed and integrated RESTful endpoints in NestJS and Sequelize with JWT authentication, orchestrating local multi-container services with Docker Compose and AWS S3 storage.',
-          'Enforced frontend software quality authoring comprehensive unit test suites with Karma and Jasmine.',
+          'Developed the self-service bulk SMS web portal in Angular, using lazy-loaded modules to improve initial load time.',
+          'Built complex reactive forms with real-time asynchronous validation for customer data.',
+          'Developed REST endpoints with NestJS and Sequelize using JWT authentication, ran local services and database with Docker Compose, and integrated AWS S3 for file storage.',
+          'Contributed frontend unit tests with Karma and Jasmine.',
         ],
       },
       technologies: [
