@@ -1,8 +1,9 @@
 /* Hoja de estilos global del portafolio - Tailwind CSS v4 */
 @import 'tailwindcss';
 
-/* Soporte de variante dark para alternar temas mediante clase en <html> */
+/* Soporte de variantes dark y light para alternar temas mediante clase en <html> */
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(html:not(.dark), html:not(.dark) *));
 
 @theme {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
