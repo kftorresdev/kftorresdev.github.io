@@ -30,6 +30,15 @@ export class ProjectCardComponent {
 
   readonly t = computed(() => this.langService.dictionary().projectsSection);
 
+  /**
+   * Enlace localizado a GitHub o a la documentación correspondiente según el idioma activo.
+   */
+  readonly localizedGithubUrl = computed<string>(() => {
+    const proj = this.project();
+    const currentLang = this.langService.currentLanguage();
+    return proj.githubReadmeUrls?.[currentLang] ?? proj.githubUrl;
+  });
+
   onOpenArchitecture(): void {
     const proj = this.project();
     if (!proj) {

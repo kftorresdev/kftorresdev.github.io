@@ -55,6 +55,18 @@ export class ArchitectureModalComponent {
 
   readonly t = computed(() => this.langService.dictionary().projectsSection);
 
+  /**
+   * Enlace localizado a GitHub o a la documentación correspondiente según el idioma activo.
+   */
+  readonly localizedGithubUrl = computed<string>(() => {
+    const proj = this.project();
+    if (!proj) {
+      return '';
+    }
+    const currentLang = this.langService.currentLanguage();
+    return proj.githubReadmeUrls?.[currentLang] ?? proj.githubUrl;
+  });
+
   constructor() {
     // Control defensivo del scroll del body y gestión accesible del foco
     effect(() => {

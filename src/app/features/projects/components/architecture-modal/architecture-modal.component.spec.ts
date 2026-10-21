@@ -2,12 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { ArchitectureModalComponent } from './architecture-modal.component';
 import { PortfolioDataService } from '../../../../core/services/portfolio-data.service';
+import { LanguageService } from '../../../../core/services/language.service';
 import { ProjectItem } from '../../../../core/models/portfolio.models';
 
 describe('ArchitectureModalComponent', () => {
   let component: ArchitectureModalComponent;
   let fixture: ComponentFixture<ArchitectureModalComponent>;
   let dataService: PortfolioDataService;
+  let langService: LanguageService;
   let sampleProject: ProjectItem;
 
   beforeEach(async () => {
@@ -19,7 +21,11 @@ describe('ArchitectureModalComponent', () => {
     fixture = TestBed.createComponent(ArchitectureModalComponent);
     component = fixture.componentInstance;
     dataService = TestBed.inject(PortfolioDataService);
+    langService = TestBed.inject(LanguageService);
     sampleProject = dataService.projects[0];
+
+    // Aseguramos idioma español por defecto
+    langService.setLanguage('es');
     fixture.detectChanges();
   });
 
@@ -136,5 +142,42 @@ describe('ArchitectureModalComponent', () => {
     TestBed.flushEffects();
 
     expect(component.activeTab()).toBe('overview');
+  });
+
+  it('debe resolver el enlace a README en español cuando el idioma activo es es', () => {
+    langService.setLanguage('es');
+    fixture.componentRef.setInput('project', sampleProject);
+    fixture.detectChanges();
+
+    expect(component.localizedGithubUrl()).toBe(
+      'https://github.com/kftorresdev/CargoPulse/blob/main/README.es.md'
+    );
+
+    const anchor = fixture.nativeElement.querySelector(
+      'a[href="https://github.com/kftorresdev/CargoPulse/blob/main/README.es.md"]'
+    ) as HTMLAnchorElement;
+    expect(anchor).toBeTruthy();
+  });
+
+  it('debe resolver el enlace raíz a GitHub cuando el idioma activo es en', () => {
+    langService.setLanguage('en');
+    fixture.componentRef.setInput('project', sampleProject);
+    fixture.detectChanges();
+
+    expect(component.localizedGithubUrl()).toBe(
+      'https://github.com/kftorresdev/CargoPulse'
+    );
+
+    const anchor = fixture.nativeElement.querySelector(
+      'a[href="https://github.com/kftorresdev/CargoPulse"]'
+    ) as HTMLAnchorElement;
+    expect(anchor).toBeTruthy();
+  });
+
+  it('debe devolver cadena vacía para localizedGithubUrl si no hay proyecto activo', () => {
+    fixture.componentRef.setInput('project', null);
+    fixture.detectChanges();
+
+    expect(component.localizedGithubUrl()).toBe('');
   });
 });

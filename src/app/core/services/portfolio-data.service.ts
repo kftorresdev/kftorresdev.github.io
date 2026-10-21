@@ -171,6 +171,10 @@ export class PortfolioDataService {
         'ExcelJS',
       ],
       githubUrl: 'https://github.com/kftorresdev/CargoPulse',
+      githubReadmeUrls: {
+        es: 'https://github.com/kftorresdev/CargoPulse/blob/main/README.es.md',
+        en: 'https://github.com/kftorresdev/CargoPulse',
+      },
       liveDemoUrl: 'https://kftorresdev.github.io/CargoPulse/',
       sortOrder: 1,
     },

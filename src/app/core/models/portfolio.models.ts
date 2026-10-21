@@ -88,6 +88,7 @@ export interface ProjectItem {
   readonly architectureModules: readonly ArchitectureModule[];
   readonly techStack: readonly string[];
   readonly githubUrl: string;
+  readonly githubReadmeUrls?: Record<SupportedLanguage, string>;
   readonly liveDemoUrl?: string;
   readonly sortOrder: number;
 }
